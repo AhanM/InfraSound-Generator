@@ -24,7 +24,7 @@ public class SineWaveGenerator extends JFrame {
     private SampleThread thread;
     private JSlider Slider;
     private JTextField InputFreqField, InputTempField,tf;
-    private JLabel tempLabel, freqLabel, inputVelLabel;
+    private JLabel tempLabel, freqLabel, inputVelLabel, adjustedFreq;
     private double temp = 0;
     private double CurrentVel = 0, velSound = 331.3;
 
@@ -106,6 +106,11 @@ public class SineWaveGenerator extends JFrame {
         tf.addActionListener(new VelocityHandler());
         getContentPane().add(tf);
 
+        adjustedFreq = new JLabel();
+        adjustedFreq.setHorizontalAlignment(SwingConstants.CENTER);
+        adjustedFreq.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        getContentPane().add(adjustedFreq);
+
         // Threading
         thread = new SampleThread();
         thread.start();
@@ -141,10 +146,10 @@ public class SineWaveGenerator extends JFrame {
 
             CurrentVel = Integer.parseInt(tf.getText())* 5 / 18; // converting km/hr to m/s
             if(CurrentVel!=0) {
-                System.out.println("FREQUENCY AFTER ADJUSTING DOPPLER Effect: "
-                        +CalDoppler(Slider.getValue(),CurrentVel,velSound));
+                adjustedFreq.setText("Frequency after adjusting for Doppler Effect(Hz) " +
+                        Math.rint(CalDoppler(Slider.getValue(),CurrentVel,velSound)));
             }
-            System.out.println(tf.getText());
+            //System.out.println(tf.getText());
         }
 
     }
@@ -203,8 +208,8 @@ public class SineWaveGenerator extends JFrame {
                 System.exit(-1);
             }
 
-            System.out.println("Requested line buffer size = " + SINE_PACKET_SIZE*2);
-            System.out.println("Actual line buffer size = " + line.getBufferSize());
+            //System.out.println("Requested line buffer size = " + SINE_PACKET_SIZE*2);
+            //System.out.println("Actual line buffer size = " + line.getBufferSize());
 
             ByteBuffer buff = ByteBuffer.allocate(SINE_PACKET_SIZE);
             //On each cycle main loop fills the available free space in the audio buffer
