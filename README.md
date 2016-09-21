@@ -10,4 +10,4 @@ so that doppler effect may be negated.
 
 The Project is co-authored by me and Prabhav Chawla.
 
-![Alt text](http://imgur.com/a/MzOks "Description")
+![Alt text](http://i.imgur.com/DJQ3mHF.png "Description")
